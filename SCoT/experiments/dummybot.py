@@ -5,6 +5,10 @@ from SCoT.SCoTD import SCoTD
 from SCoT.eval.swelite import *
 import argparse
 
+class Dummy:
+    def __call__(self, user_input):
+        return ''''''
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--token", type=str, required=True, help="Authentication token", default='token')
@@ -12,7 +16,7 @@ if __name__ == '__main__':
 
     bot = GeminiBot(args.token)
     agent = SCoTD(bot)
-    data = generate_patches(test_dataset[:1], agent, 'SCoT_gemini_1.5')
+    data = generate_patches(test_dataset, agent, 'SCoT_gemini_1.5')
     
     # Ensure the folder exists
     result_dir = "./result"

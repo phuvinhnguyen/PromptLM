@@ -87,7 +87,7 @@ class DirectCoder(EnvChat):
     initial_task = code_initial_task
     modifies = ()
 
-    def __init__(self, chatbot, max_time=12, max_history=14):
+    def __init__(self, chatbot, max_time=10, max_history=12):
         super().__init__(chatbot, max_time, max_history)
         self.env = CoderEnv(self.env_prompt, self.code_wrap)
     

@@ -7,10 +7,13 @@ from FlowDesign.processor import ThinkProcessor
 class SCoTD(ThinkProcessor):
     def __init__(self, bot):
         super().__init__()
-        coder = DirectCoder(bot)
-        analyser = Analyser(bot)
-        tester = Tester(bot)
-        self.flow = (tester * analyser * coder)[5, lambda x: len(x['problems']) == 0]
+        max_time = 5
+        max_history = 10
+        repeat = 3
+        coder = DirectCoder(bot, max_time=max_time, max_history=max_history)
+        analyser = Analyser(bot, max_time=max_time, max_history=max_history)
+        tester = Tester(bot, max_time=max_time, max_history=max_history)
+        self.flow = (tester * analyser * coder)[repeat, lambda x: len(x['problems']) == 0]
 
     def __call__(self, query: dict):
         return self.flow(query)

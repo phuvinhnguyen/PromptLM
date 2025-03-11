@@ -2,7 +2,7 @@ import ast
 from typing import Union
 import os
 
-MAX_DISPLAY = 15
+MAX_DISPLAY = 30
 
 def __tree2dict__(tree):
     if isinstance(tree, Union[ast.FunctionDef, ast.ClassDef, ast.Module]):
