@@ -10,9 +10,9 @@ if __name__ == '__main__':
     parser.add_argument("--token", type=str, required=True, help="Authentication token", default='token')
     args = parser.parse_args()
 
-    bot = ChatGPTbot(args.token)
+    bot = GeminiBot(args.token, model_name='gemini-2.0-flash-lite')
     agent = SCoTD(bot)
-    data = generate_patches(test_dataset[:1], agent, 'SCoT_gpt4omini')
+    data = generate_patches(test_dataset, agent, 'SCoT_gemini_2.0')
     
     # Ensure the folder exists
     result_dir = "./result"

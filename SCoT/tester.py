@@ -41,10 +41,10 @@ class Tester(EnvChat):
         status = status.lower().strip()
         if status == 'bugs':
             root, code, status = extract_sections(self.history[-3].content)[-3:]
-            return (tester_bug_prompt.format(code=code, env=self.history[-2].content, root=root), True)
+            return (tester_bug_prompt.format(code=code, env=self.history[-2].content, root=root.strip()), True)
         elif status == 'fixed':
             return ('', False)
-        return self.env.run(code, root)
+        return self.env.run(code, root.strip())
     
     def process(self, problems, root, test_root):
         while problems != []:

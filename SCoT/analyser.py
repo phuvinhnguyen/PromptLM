@@ -39,4 +39,4 @@ class Analyser(EnvChat):
         if status == 'detected':
             edit_code = self.history[-2].content
             return (edit_code, problems + [problem])
-        return self.env.run(code, root)
+        return self.env.run(code, root.strip())
