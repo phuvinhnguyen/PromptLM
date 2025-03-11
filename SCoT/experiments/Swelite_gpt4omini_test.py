@@ -1,7 +1,7 @@
 import os
 import json
 from FlowDesign.chatbot import *
-from SCoT.SCoT import SCoT
+from SCoT.SCoTD import SCoTD
 from SCoT.eval.swelite import *
 import argparse
 
@@ -11,7 +11,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     bot = ChatGPTbot(args.token)
-    agent = SCoT(bot)
+    agent = SCoTD(bot)
     data = generate_patches(test_dataset, agent, 'SCoT_gpt4omini')
     
     # Ensure the folder exists

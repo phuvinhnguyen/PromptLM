@@ -16,7 +16,7 @@ module load git
 source ~/venv/bin/activate  # Adjust path to your venv
 
 # Run the first experiment with the token from environment
-python -m experiments.Swelite_gpt4omini_test --token $RUNNINGAPI
+python -m SCoT.experiments.Swelite_gpt4omini_test --token $RUNNINGAPI
 
 # Clone and install SWE-bench
 if [ ! -d "SWE-bench" ]; then

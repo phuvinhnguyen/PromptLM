@@ -1,6 +1,6 @@
 #!/bin/bash
 
-python -m SCoT.experiments.Swelite_gpt4omini_test --token $RUNNINGAPI
+python -m SCoT.experiments.Swelite_gemini_20_flash_test --token $RUNNINGAPI
 
 git clone https://github.com/SWE-bench/SWE-bench.git
 cd SWE-bench

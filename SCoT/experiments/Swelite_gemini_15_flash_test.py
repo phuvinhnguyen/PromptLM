@@ -1,21 +1,18 @@
 import os
 import json
-from FlowDesign.chatbot.template import ImBot
+from FlowDesign.chatbot import *
 from SCoT.SCoTD import SCoTD
 from SCoT.eval.swelite import *
 import argparse
 
-class LrmBot(ImBot):
-    prompt_template = '{history}<|im_start|>assistant\n<think>\n'
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("--token", type=str, help="Authentication token", default='token')
+    parser.add_argument("--token", type=str, required=True, help="Authentication token", default='token')
     args = parser.parse_args()
 
-    bot = LrmBot(args.token, 'Qwen/QwQ-32B', max_new_tokens=2048)
+    bot = GeminiBot(args.token)
     agent = SCoTD(bot)
-    data = generate_patches(test_dataset, agent, 'SCoT_QwQ32b')
+    data = generate_patches(test_dataset, agent, 'SCoT_gemini_1.5')
     
     # Ensure the folder exists
     result_dir = "./result"
