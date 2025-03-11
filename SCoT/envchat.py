@@ -49,7 +49,7 @@ class EnvChat(ChatProcessor):
     env_prompt = default_env_prompt
     code_wrap = default_code_wrap
 
-    def __init__(self, chatbot, max_time=2, max_history=10):
+    def __init__(self, chatbot, max_time=10, max_history=12):
         super().__init__(chatbot)
         self.history = History()
         self.history.system(self.system_prompt)

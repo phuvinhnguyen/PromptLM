@@ -13,7 +13,7 @@ A step by step, careful, and detailed explanation of the current problem
 ## Root
 /path/to/the/directory/that/the/code/will/be/run/at
 ## Action code
-Python program that can be executed to discover the problem. The program can use the build-in tools are provided in the Tools section (code of each tool will be inserted to your code automatically before executing). If you confirm the location of the bugs that need to fix are provided in the previous response of the environment, set the status to detected, else set it to exploring
+A python program that can be executed to discover the problem. The program can use the build-in tools are provided in the Tools section (code of each tool will be inserted to your code automatically before executing). If you confirm the location of the bugs that need to fix are provided in the previous response of the environment, set the status to detected, else set it to exploring
 ## Status
 Only two possible status: detected and exploring, where:
 - detected: if the response of the environment focus on the location of the code piece that contains bugs and need to be patched

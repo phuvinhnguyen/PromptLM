@@ -71,7 +71,7 @@ def view_code(file_path: str, start_line: int, num_line=15) -> None:
     '''This function displays code piece in file \'file_path\' from line \'start_line\' to line \'start_line\' + \'num_line\'
     Args:
         file_path: path of the text file you want to view
-        start_line: the starting line of the code piece to view
+        start_line: the starting line of the code piece to view, first line of the file is indexed 1
         num_line: number of line from the \'start_line\' to view
     Return:
         None
@@ -79,6 +79,9 @@ def view_code(file_path: str, start_line: int, num_line=15) -> None:
         The code piece in the code block (markdown format) in file \'file_path\' from line \'start_line\' to line \'start_line\' + \'num_line\'
         '''
     try:
+        if start_line == 0:
+            print('''First line of the file is indexed 1, not 0, I will set start_line to 1 instead''')
+            start_line = 1
         with open(file_path, 'r') as f:
             lines = f.readlines()
             
@@ -89,7 +92,7 @@ def view_code(file_path: str, start_line: int, num_line=15) -> None:
         if num_line > MAX_DISPLAY: print(f'\'num_line\' is larger than {MAX_DISPLAY}, we only display the code from line {start_line} to {end_line}')
         print(f"Lines: {start_line}-{end_line}")
         print("```python")
-        print(code_snippet.rstrip())
+        print(code_snippet)
         print("```\n")
         
     except Exception as e:

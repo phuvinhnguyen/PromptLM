@@ -1,13 +1,13 @@
 from SCoT.analyser import Analyser
-from SCoT.coder import Coder
+from SCoT.dcoder import DirectCoder
 from SCoT.tester import Tester
 from SCoT.utils import search_name_similar
 from FlowDesign.processor import ThinkProcessor
 
-class SCoT(ThinkProcessor):
+class SCoTD(ThinkProcessor):
     def __init__(self, bot):
         super().__init__()
-        coder = Coder(bot)
+        coder = DirectCoder(bot)
         analyser = Analyser(bot)
         tester = Tester(bot)
         self.flow = (tester * analyser * coder)[5, lambda x: len(x['problems']) == 0]

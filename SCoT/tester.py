@@ -11,7 +11,7 @@ Your step by step thinking on how to discovering and write a test program
 ## Execution path
 /path/to/the/directory/that/the/program/will/be/run/at
 ## Program
-Python or bash program that can be executed to discover the project or print out errors, logs and provide detailed information if the problem is still persisted. Your Python program can use build-in tools are provided in the Tools section (code of each tool will be inserted to your code automatically before executing).
+A python program that can be executed to discover the project or print out errors, logs and provide detailed information if the problem is still persisted. Your Python program can use build-in tools are provided in the Tools section (code of each tool will be inserted to your code automatically before executing).
 ## Status
 One of the following: bugs, fixed, discovering. Where:
 - bugs: use when the previous return from your program shows that the bug is still existed in the project

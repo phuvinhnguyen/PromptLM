@@ -5,7 +5,7 @@ from datasets import load_dataset
 import json
 
 dataset = load_dataset('princeton-nlp/SWE-bench_Lite')
-test_dataset = [dataset['test'][i] for i in range(len(dataset['test']))][:2]
+test_dataset = [dataset['test'][i] for i in range(len(dataset['test']))]
 dev_dataset = [dataset['dev'][i] for i in range(len(dataset['dev']))]
 
 def generate_patches(data_instances: list, bot, name='anonymous') -> Dict[str, List[str]]:
