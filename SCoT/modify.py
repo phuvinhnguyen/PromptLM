@@ -12,7 +12,7 @@ def run_pylint(file_path):
         result = subprocess.run(
             ["pylint",
              "--disable=all",           # Turn off all checks
-             "--enable=E,fatal,syntax-error",  # Enable all Errors (E), Fatal errors, and Syntax errors
+             "--enable=E",  # Enable all Errors (E), Fatal errors, and Syntax errors
              "--reports=no",            # Disable summary reports
              "--persistent=no",         # Don't remember previous runs
              file_path],
@@ -76,6 +76,22 @@ def replace_code(bot_code, file_path, start, end):
     except Exception as e:
         print("An error occurred during replacement: " + str(e))
 
+def view_code(file_path: str, start_line: int, end_line: int) -> None:
+    result = '## Code after being updated\n'
+    try:
+        with open(file_path, 'r') as f:
+            lines = f.readlines()
+            
+        code_snippet = ''.join(lines[start_line-1:end_line])
+        if code_snippet.endswith('\n'): code_snippet = code_snippet[:-1]
+        
+        result += f"Lines: {start_line}-{end_line} (The first line in the code is line {start_line}, the last line is line {end_line})\n"
+        result += f"```python\n{code_snippet}\n```\n"
+        return result
+        
+    except Exception as e:
+        return f"Error reading file: {str(e)}"
+
 def validate_replacement_code(bot_code, file_path, start, end):
     print(f"Perform replacing code at file {file_path} from line {start} to {end}")
     try:
@@ -88,6 +104,8 @@ def validate_replacement_code(bot_code, file_path, start, end):
     error_lines_before = get_error_lines(pylint_before)
 
     replace_code(bot_code, file_path, start, end)
+    new_end = start + len(bot_code.split('\n'))
+    new_code = view_code(file_path, max(start - 5, 1), new_end + 5)
 
     pylint_after = run_pylint(file_path)
     error_lines_after = get_error_lines(pylint_after)
@@ -96,9 +114,9 @@ def validate_replacement_code(bot_code, file_path, start, end):
         new_errors = error_lines_after - error_lines_before
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(original_content)
-        return "Replacement failed. New errors have appeared:\n{}\nOriginal code is used." \
-                .format(format_error_set(new_errors)).replace('---', '').replace('***','')
+        return f"Replacement results in the new code:\n {new_code}\nNew errors have appeared:\n{format_error_set(new_errors)}Roll back to the original code." \
+                .replace('---', '').replace('***','')
     else:
-        return "Replacement valid. No new errors introduced after replacement.\nDetails:\n{}" \
-                .format(pylint_after).replace('---', '').replace('***','')
+        return f"Replacement results in the new code:\n {new_code}\nNo new errors introduced after replacement.\nDetails:\n{pylint_after}" \
+            .replace('---', '').replace('***','')
 

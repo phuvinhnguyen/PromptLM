@@ -62,9 +62,6 @@ class Coder(EnvChat):
         self.env = CoderEnv(self.env_prompt, self.code_wrap)
     
     def exec(self, root, problems):
-        patch = extract_sections(self.history[-1].content)[-1]
-        if patch.lower().strip() == 'pass': return  ()
-        answer = self.env.run(patch, root)
-        if 'Valid patch, Pylint does not detect new error after applying this patch:' in answer:
-            return ()
-        return answer
+        patch:str = extract_sections(self.history[-1].content)[-1]
+        if patch.lower().strip().startswith('pass'): return  ()
+        return self.env.run(patch, root)

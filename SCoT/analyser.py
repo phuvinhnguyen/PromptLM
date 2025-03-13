@@ -34,9 +34,9 @@ class Analyser(EnvChat):
 
     def exec(self, root, problems):
         problem, root, code, status = extract_sections(self.history[-1].content)[-4:]
-        status = status.lower().strip()
+        status: str = status.lower().strip()
 
-        if status == 'detected':
+        if status.startswith('detected'):
             edit_code = self.history[-2].content
             return (edit_code, problems + [problem])
         return self.env.run(code, root.strip())

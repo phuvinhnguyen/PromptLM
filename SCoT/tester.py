@@ -38,11 +38,11 @@ class Tester(EnvChat):
 
     def exec(self, root, problems):
         root, code, status = extract_sections(self.history[-1].content)[-3:]
-        status = status.lower().strip()
-        if status == 'bugs':
+        status: str = status.lower().strip()
+        if status.lower().startswith('bugs'):
             root, code, status = extract_sections(self.history[-3].content)[-3:]
             return (tester_bug_prompt.format(code=code, env=self.history[-2].content, root=root.strip()), True)
-        elif status == 'fixed':
+        elif status.lower().startswith('fixed'):
             return ('', False)
         return self.env.run(code, root.strip())
     

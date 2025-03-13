@@ -87,10 +87,11 @@ def view_code(file_path: str, start_line: int, num_line=15) -> None:
             
         end_line = start_line + num_line if num_line < MAX_DISPLAY else start_line + MAX_DISPLAY
         code_snippet = ''.join(lines[start_line-1:end_line])
+        if code_snippet.endswith('\n'): code_snippet = code_snippet[:-1]
         
         print(f"## Path: {file_path}")
         if num_line > MAX_DISPLAY: print(f'\'num_line\' is larger than {MAX_DISPLAY}, we only display the code from line {start_line} to {end_line}')
-        print(f"Lines: {start_line}-{end_line}")
+        print(f"Lines: {start_line}-{end_line} (The first line in the code is line {start_line}, the last line is line {end_line})")
         print("```python")
         print(code_snippet)
         print("```\n")

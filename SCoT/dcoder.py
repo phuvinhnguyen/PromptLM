@@ -36,7 +36,7 @@ Your response must strictly follow this structure, which includes step-by-step t
 - Analyze the problem thoroughly before making modifications.  
 - Ensure that your patch effectively fixes the issue.  
 - Keep the new code concise, efficient, and aligned with best practices.  
-- If the Tasker does not give you the edit place and you have no information to generate the code, your conclusion must be \'pass\'
+- When there are nothing else to do, you temporarily finish coding or the task does not provide information about the error code, your conclusion must be \'pass\'
 ## Conclusion
 ```json
 {
@@ -62,12 +62,17 @@ def extract_json(text):
     matches = re.findall(r'\{.*?\}', text, re.DOTALL)
 
     json_objects = []
+    success_patch = 0
+    errors = ''
     for match in matches:
         try:
             json_obj = json.loads(match)  # Parse each matched JSON string
             json_objects.append(json_obj)
-        except json.JSONDecodeError:
-            print(f"Warning: Skipping invalid JSON: {match}")
+            success_patch += 1
+        except json.JSONDecodeError as e:
+            errors += str(e)
+    if success_patch == 0:
+        return errors
 
     return json_objects
 
@@ -92,12 +97,9 @@ class DirectCoder(EnvChat):
         self.env = CoderEnv(self.env_prompt, self.code_wrap)
     
     def exec(self, root, problems):
-        conclusion = extract_sections(self.history[-1].content)[-1]
-        if conclusion.lower().strip() == 'pass': return ()
+        conclusion: str = extract_sections(self.history[-1].content)[-1]
+        if conclusion.lower().strip().startswith('pass'): return ()
 
         data = extract_json(conclusion)
-        answer = self.env.run(data, root)
-
-        if 'Replacement valid. No new errors introduced after replacement.' in answer:
-            return ()
-        return answer
+        if isinstance(data, str): return data
+        return self.env.run(data, root)

@@ -14,7 +14,7 @@ if __name__ == '__main__':
     parser.add_argument("--token", type=str, required=True, help="Authentication token", default='token')
     args = parser.parse_args()
 
-    bot = GeminiBot(args.token)
+    bot = Dummy()
     agent = SCoTD(bot)
     data = generate_patches(test_dataset, agent, 'SCoT_gemini_1.5')
     
