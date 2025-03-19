@@ -6,14 +6,11 @@
 #SBATCH --ntasks=1                    # Number of tasks (usually 1)
 #SBATCH --cpus-per-task=4             # Number of CPU cores per task
 #SBATCH --mem=16G                     # Memory per node
-#SBATCH --partition=standard           # Partition name (adjust based on cluster)
+#SBATCH --partition=amperenodes           # Partition name (adjust based on cluster)
 
 # Load necessary modules (adjust for your environment)
-module load python/3.8
+module load python/3.10
 module load git
-
-# Activate virtual environment if needed
-source ~/venv/bin/activate  # Adjust path to your venv
 
 # Run the first experiment with the token from environment
 python -m SCoT.experiments.Swelite_gpt4omini_test --token $RUNNINGAPI

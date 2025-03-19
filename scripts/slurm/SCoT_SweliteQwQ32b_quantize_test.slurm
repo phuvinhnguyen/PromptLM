@@ -7,14 +7,11 @@
 #SBATCH --cpus-per-task=4             # Number of CPU cores per task
 #SBATCH --mem=16G                     # Memory per node
 #SBATCH --gres=gpu:1                   # Request 1 GPU (remove if not needed)
-#SBATCH --partition=standard           # Partition name (adjust based on cluster)
+#SBATCH --partition=amperenodes           # Partition name (adjust based on cluster)
 
 # Load necessary modules (adjust for your environment)
-module load python/3.8
+module load python/3.10
 module load git
-
-# Activate virtual environment if needed
-source ~/venv/bin/activate  # Adjust path to your venv
 
 curl -fsSL https://ollama.com/install.sh | sh
 ollama run qwq

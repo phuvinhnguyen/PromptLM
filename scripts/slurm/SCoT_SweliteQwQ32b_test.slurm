@@ -5,16 +5,13 @@
 #SBATCH --time=02:00:00               # Time limit (hh:mm:ss)
 #SBATCH --ntasks=1                    # Number of tasks (usually 1)
 #SBATCH --cpus-per-task=4             # Number of CPU cores per task
-#SBATCH --mem=16G                     # Memory per node
-#SBATCH --gres=gpu:1                   # Request 1 GPU (remove if not needed)
-#SBATCH --partition=standard           # Partition name (adjust based on cluster)
+#SBATCH --mem=32G                     # Memory per node
+#SBATCH --gres=gpu:12                  # Request 1 GPU (remove if not needed)
+#SBATCH --partition=amperenodes           # Partition name (adjust based on cluster)
 
 # Load necessary modules (adjust for your environment)
-module load python/3.8
+module load python/3.10
 module load git
-
-# Activate virtual environment if needed
-source ~/venv/bin/activate  # Adjust path to your venv
 
 # Run the first experiment
 python -m SCoT.experiments.Swelite_QwQ32b_test
