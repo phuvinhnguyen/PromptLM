@@ -13,9 +13,11 @@
 module load python/3.10
 module load git
 
-curl -L https://ollama.com/download/ollama-linux-amd64 -o ~/bin/ollama
-chmod +x ~/bin/ollama
-export PATH=$PATH:~/bin
+curl -L https://ollama.com/download/ollama-linux-amd64.tgz -o ollama-linux-amd64.tgz
+mkdir -p ~/.bin/ollama
+tar -C ~/.bin/ollama -xzf ollama-linux-amd64.tgz
+echo 'export PATH=$PATH:~/.bin/ollama' >> ~/.bashrc
+. ~/.bashrc
 ollama pull qwq
 python -m SCoT.experiments.Swelite_QwQ32b_quantize_test
 
