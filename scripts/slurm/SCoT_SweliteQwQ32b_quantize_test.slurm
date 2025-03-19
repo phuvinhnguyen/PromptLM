@@ -13,10 +13,11 @@
 module load python/3.10
 module load git
 
-curl -fsSL https://ollama.com/install.sh | sh
-ollama run qwq
+curl -L https://ollama.com/download/ollama-linux-amd64 -o ~/bin/ollama
+chmod +x ~/bin/ollama
+export PATH=$PATH:~/bin
+ollama pull qwq
 python -m SCoT.experiments.Swelite_QwQ32b_quantize_test
-ollama stop qwq
 
 # Clone and install SWE-bench
 if [ ! -d "SWE-bench" ]; then
