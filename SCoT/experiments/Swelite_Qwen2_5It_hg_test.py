@@ -19,7 +19,7 @@ if __name__ == '__main__':
     filepath = os.path.join(result_dir, base_filename)
 
     print('-'*10, 'start loading chatbot', '-'*100)
-    bot = LrmBot(args.token, 'deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B', run_local='hg', max_new_tokens=2048, device_map='auto')
+    bot = ImBot(args.token, run_local='hg', max_new_tokens=2048, device_map='auto')
     print('-'*10, 'create agent', '-'*50)
     agent = SCoTD(bot)
     print('-'*10, 'run agent', '-'*50)

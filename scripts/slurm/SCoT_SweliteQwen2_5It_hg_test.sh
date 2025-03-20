@@ -10,7 +10,7 @@
 #SBATCH --partition=amperenodes           # Partition name (adjust based on cluster)
 
 # Run the first experiment
-python -m SCoT.experiments.Swelite_DeepSeekDistil1_5b_hg_test
+python -m SCoT.experiments.Swelite_Qwen2_5It_hg_test
 
 # # Clone and install SWE-bench
 # if [ ! -d "SWE-bench" ]; then
