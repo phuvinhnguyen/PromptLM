@@ -13,7 +13,7 @@ if __name__ == '__main__':
     parser.add_argument("--token", type=str, help="Authentication token", default='token')
     args = parser.parse_args()
 
-    bot = LrmBot(args.token, 'Qwen/QwQ-32B', max_new_tokens=2048)
+    bot = LrmBot(args.token, 'Qwen/QwQ-32B', max_new_tokens=2048, device_map='auto')
     agent = SCoTD(bot)
     data = generate_patches(test_dataset, agent, 'SCoT_QwQ32b')
     
