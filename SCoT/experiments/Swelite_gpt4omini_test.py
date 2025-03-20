@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
     bot = ChatGPTbot(args.token)
     agent = SCoTD(bot)
-    data = generate_patches(test_dataset[:1], agent, 'SCoT_gpt4omini')
+    data = generate_patches(test_dataset[:1], agent, f'{str(__file__)}')
     
     # Ensure the folder exists
     result_dir = "./result"

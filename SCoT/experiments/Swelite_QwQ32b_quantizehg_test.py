@@ -23,7 +23,7 @@ if __name__ == '__main__':
     print('-'*10, 'create agent', '-'*50)
     agent = SCoTD(bot)
     print('-'*10, 'run agent', '-'*50)
-    data = generate_patches(test_dataset, agent, 'SCoT_QwQ32b')
+    data = generate_patches(test_dataset, agent, f'{str(__file__)}')
     print('-'*10, 'finish', '-'*50)
 
     version = 1

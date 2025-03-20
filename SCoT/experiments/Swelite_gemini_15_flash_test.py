@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
     bot = GeminiBot(args.token)
     agent = SCoTD(bot)
-    data = generate_patches(test_dataset, agent, 'SCoT_gemini_1.5')
+    data = generate_patches(test_dataset, agent, f'{str(__file__)}')
     
     # Ensure the folder exists
     result_dir = "./result"

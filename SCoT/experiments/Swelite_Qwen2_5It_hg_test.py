@@ -15,13 +15,9 @@ if __name__ == '__main__':
     base_filename = f"experiment_{os.path.basename(__file__)}_v0.json"
     filepath = os.path.join(result_dir, base_filename)
 
-    print('-'*10, 'start loading chatbot', '-'*100)
     bot = ImBot(args.token, run_local='hg', device_map='auto', pipeline_kwargs={'max_new_tokens': 2024})
-    print('-'*10, 'create agent', '-'*50)
     agent = SCoTD(bot)
-    print('-'*10, 'run agent', '-'*50)
-    data = generate_patches(test_dataset, agent, 'SCoT_Gemma31b')
-    print('-'*10, 'finish', '-'*50)
+    data = generate_patches(test_dataset, agent, f'{str(__file__)}')
 
     version = 1
     while os.path.exists(filepath):
