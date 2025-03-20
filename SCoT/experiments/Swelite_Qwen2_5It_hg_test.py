@@ -5,9 +5,6 @@ from SCoT.SCoTD import SCoTD
 from SCoT.eval.swelite import *
 import argparse
 
-class LrmBot(ImBot):
-    prompt_template = '{history}<|im_start|>assistant\n<think>\n'
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--token", type=str, help="Authentication token", default='token')
@@ -19,7 +16,7 @@ if __name__ == '__main__':
     filepath = os.path.join(result_dir, base_filename)
 
     print('-'*10, 'start loading chatbot', '-'*100)
-    bot = ImBot(args.token, run_local='hg', max_new_tokens=2048, device_map='auto')
+    bot = ImBot(args.token, run_local='hg', device_map='auto', pipeline_kwargs={'max_new_tokens': 2024})
     print('-'*10, 'create agent', '-'*50)
     agent = SCoTD(bot)
     print('-'*10, 'run agent', '-'*50)
