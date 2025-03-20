@@ -6,11 +6,11 @@
 #SBATCH --ntasks=1                    # Number of tasks (usually 1)
 #SBATCH --cpus-per-task=4             # Number of CPU cores per task
 #SBATCH --mem=32G                     # Memory per node
-#SBATCH --gres=gpu:2                  # Request 1 GPU (remove if not needed)
+#SBATCH --gres=gpu:1                  # Request 1 GPU (remove if not needed)
 #SBATCH --partition=amperenodes           # Partition name (adjust based on cluster)
 
 # Run the first experiment
-python -m SCoT.experiments.Swelite_Gemma31b_quantizehg_test
+python -m SCoT.experiments.Swelite_DeepSeekDistil1_5b_hg_test
 
 # # Clone and install SWE-bench
 # if [ ! -d "SWE-bench" ]; then
