@@ -11,6 +11,7 @@ dev_dataset = [dataset['dev'][i] for i in range(len(dataset['dev']))]
 def generate_patches(data_instances: list, bot, name='anonymous') -> Dict[str, List[str]]:
     results = []
     for index, data in enumerate(data_instances):
+        print('+='*100, index)
         repo = data['repo']
         instance_id = data['instance_id']
         base_commit = data['base_commit']
