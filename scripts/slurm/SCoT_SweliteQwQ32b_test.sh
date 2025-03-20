@@ -9,10 +9,6 @@
 #SBATCH --gres=gpu:2                  # Request 1 GPU (remove if not needed)
 #SBATCH --partition=amperenodes           # Partition name (adjust based on cluster)
 
-# Load necessary modules (adjust for your environment)
-module load python/3.10
-module load git
-
 # Run the first experiment
 python -m SCoT.experiments.Swelite_QwQ32b_test
 
