@@ -3,27 +3,14 @@ import tempfile
 from typing import Dict, List
 from datasets import load_dataset
 import json
-import logging
-import sys
-
-# Configure logging to output to stdout with a specific format
-logging.basicConfig(
-    level=logging.INFO,
-    stream=sys.stdout,  # ensures logs go to stdout
-    format="%(asctime)s - %(levelname)s - %(message)s"
-)
 
 dataset = load_dataset('princeton-nlp/SWE-bench_Lite')
 test_dataset = [dataset['test'][i] for i in range(len(dataset['test']))]
 dev_dataset = [dataset['dev'][i] for i in range(len(dataset['dev']))]
 
 def generate_patches(data_instances: list, bot, name='anonymous') -> Dict[str, List[str]]:
-    logger = logging.getLogger()
-    logger.log('-'*100)
-    logger.log('generate_patches')
     results = []
     for index, data in enumerate(data_instances):
-        logger.log(f'start working on data {index}: {data}')
         repo = data['repo']
         instance_id = data['instance_id']
         base_commit = data['base_commit']
