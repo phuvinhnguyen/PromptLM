@@ -88,7 +88,7 @@ def generate_patches(data_instances: list, bot, name='anonymous') -> Dict[str, L
             print(f'# Finish generating patch for data {index}: {instance_id}')
             print(results[-1])
 
-            with open('experiment_log.json', "w", encoding="utf-8") as file:
+            with open(f'experiment_log_{name}.json', "w", encoding="utf-8") as file:
                 json.dump(results, file, indent=4, ensure_ascii=False)
             
     return results
