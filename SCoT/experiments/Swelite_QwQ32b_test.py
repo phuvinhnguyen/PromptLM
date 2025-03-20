@@ -19,14 +19,14 @@ if __name__ == '__main__':
     base_filename = f"experiment_{os.path.basename(__file__)}_v0.json"
     filepath = os.path.join(result_dir, base_filename)
 
+    bot = LrmBot(args.token, 'Qwen/QwQ-32B', max_new_tokens=2048, device_map='auto')
+    agent = SCoTD(bot)
+    data = generate_patches(test_dataset, agent, 'SCoT_QwQ32b')
+
     version = 1
     while os.path.exists(filepath):
         filepath = os.path.join(result_dir, f"experiment_{os.path.basename(__file__)}_v{version}.json")
         version += 1
-
-    bot = LrmBot(args.token, 'Qwen/QwQ-32B', max_new_tokens=2048, device_map='auto')
-    agent = SCoTD(bot)
-    data = generate_patches(test_dataset, agent, 'SCoT_QwQ32b')
 
     # Save JSON data
     with open(filepath, "w", encoding="utf-8") as file:
