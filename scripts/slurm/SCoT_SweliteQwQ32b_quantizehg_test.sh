@@ -12,16 +12,16 @@
 # Run the first experiment
 python -m SCoT.experiments.Swelite_QwQ32b_quantizehg_test
 
-# Clone and install SWE-bench
-if [ ! -d "SWE-bench" ]; then
-    git clone https://github.com/SWE-bench/SWE-bench.git
-fi
-cd SWE-bench
-pip install -e .
+# # Clone and install SWE-bench
+# if [ ! -d "SWE-bench" ]; then
+#     git clone https://github.com/SWE-bench/SWE-bench.git
+# fi
+# cd SWE-bench
+# pip install -e .
 
-# Run evaluation
-python -m swebench.harness.run_evaluation \
-    --dataset_name princeton-nlp/SWE-bench_Lite \
-    --predictions_path "../result/experiment_Swelite_QwQ32b_test_v0.json" \
-    --run_id validate-Swelite_QwQ32b_test \
-    --modal true
+# # Run evaluation
+# python -m swebench.harness.run_evaluation \
+#     --dataset_name princeton-nlp/SWE-bench_Lite \
+#     --predictions_path "../result/experiment_Swelite_QwQ32b_test_v0.json" \
+#     --run_id validate-Swelite_QwQ32b_test \
+#     --modal true
