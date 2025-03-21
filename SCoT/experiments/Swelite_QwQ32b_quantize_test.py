@@ -15,7 +15,7 @@ if __name__ == '__main__':
 
     bot = LrmBot(args.token, 'qwq', run_local='ol', max_new_tokens=2048)
     agent = SCoTD(bot)
-    data = generate_patches(test_dataset, agent, f'{str(__file__)}')
+    data = generate_patches(test_dataset, agent, f'{os.path.basename(str(__file__)).split('.')[0]}')
     
     # Ensure the folder exists
     result_dir = "./result"

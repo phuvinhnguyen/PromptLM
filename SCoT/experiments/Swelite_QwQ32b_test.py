@@ -21,7 +21,7 @@ if __name__ == '__main__':
 
     bot = LrmBot(args.token, 'Qwen/QwQ-32B', max_new_tokens=2048, device_map='auto')
     agent = SCoTD(bot)
-    data = generate_patches(test_dataset, agent, f'{str(__file__)}')
+    data = generate_patches(test_dataset, agent, f'{os.path.basename(str(__file__)).split('.')[0]}')
 
     version = 1
     while os.path.exists(filepath):

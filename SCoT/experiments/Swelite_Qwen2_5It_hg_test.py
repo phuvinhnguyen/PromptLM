@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
     bot = ImBot(args.token, run_local='hg', device_map='auto', pipeline_kwargs={'max_new_tokens': 2024})
     agent = SCoTD(bot)
-    data = generate_patches(test_dataset, agent, f'{str(__file__)}')
+    data = generate_patches(test_dataset, agent, f'{os.path.basename(str(__file__)).split('.')[0]}')
 
     version = 1
     while os.path.exists(filepath):
