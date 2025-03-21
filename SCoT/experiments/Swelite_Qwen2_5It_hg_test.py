@@ -11,17 +11,18 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     result_dir = "./result"
+    name = os.path.basename(__file__)
     os.makedirs(result_dir, exist_ok=True)
-    base_filename = f"experiment_{os.path.basename(__file__)}_v0.json"
+    base_filename = f"experiment_{name}_v0.json"
     filepath = os.path.join(result_dir, base_filename)
 
     bot = ImBot(args.token, run_local='hg', device_map='auto', pipeline_kwargs={'max_new_tokens': 2024})
     agent = SCoTD(bot)
-    data = generate_patches(test_dataset, agent, f'{os.path.basename(str(__file__)).split('.')[0]}')
+    data = generate_patches(test_dataset, agent, f'{name}')
 
     version = 1
     while os.path.exists(filepath):
-        filepath = os.path.join(result_dir, f"experiment_{os.path.basename(__file__)}_v{version}.json")
+        filepath = os.path.join(result_dir, f"experiment_{name}_v{version}.json")
         version += 1
 
     # Save JSON data

@@ -18,13 +18,9 @@ if __name__ == '__main__':
     base_filename = f"experiment_{os.path.basename(__file__)}_v0.json"
     filepath = os.path.join(result_dir, base_filename)
 
-    print('-'*10, 'start loading chatbot', '-'*100)
     bot = LrmBot(args.token, 'Qwen/QwQ-32B-AWQ', run_local='vllm', max_new_tokens=2048, vllm_kwargs={"quantization": "awq"})
-    print('-'*10, 'create agent', '-'*50)
     agent = SCoTD(bot)
-    print('-'*10, 'run agent', '-'*50)
     data = generate_patches(test_dataset, agent, f'{os.path.basename(str(__file__)).split('.')[0]}')
-    print('-'*10, 'finish', '-'*50)
 
     version = 1
     while os.path.exists(filepath):

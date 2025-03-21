@@ -12,20 +12,21 @@ if __name__ == '__main__':
 
     bot = ChatGPTbot(args.token)
     agent = SCoTD(bot)
-    data = generate_patches(test_dataset[:1], agent, f'{os.path.basename(str(__file__)).split('.')[0]}')
+    name = os.path.basename(__file__)
+    data = generate_patches(test_dataset[:1], agent, f'{name}')
     
     # Ensure the folder exists
     result_dir = "./result"
     os.makedirs(result_dir, exist_ok=True)
 
     # Base filename
-    base_filename = f"experiment_{os.path.basename(__file__)}_v0.json"
+    base_filename = f"experiment_{name}_v0.json"
     filepath = os.path.join(result_dir, base_filename)
 
     # If file exists, create a new version
     version = 1
     while os.path.exists(filepath):
-        filepath = os.path.join(result_dir, f"experiment_{os.path.basename(__file__)}_v{version}.json")
+        filepath = os.path.join(result_dir, f"experiment_{name}_v{version}.json")
         version += 1
 
     # Save JSON data
