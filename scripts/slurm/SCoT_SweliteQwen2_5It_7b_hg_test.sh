@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=4             # Number of CPU cores per task
 #SBATCH --mem=32G                     # Memory per node
 #SBATCH --gres=gpu:1                  # Request 1 GPU (remove if not needed)
-#SBATCH --partition=amperenodes-medium           # Partition name (adjust based on cluster)
+#SBATCH --partition=amperenodes           # Partition name (adjust based on cluster)
 
 # Run the first experiment
 python -m SCoT.experiments.Swelite_Qwen2_5It_7b_hg_test
