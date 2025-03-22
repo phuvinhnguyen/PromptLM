@@ -2,7 +2,7 @@
 #SBATCH --job-name=swebench_eval      # Job name
 #SBATCH --output=swebench_eval.out    # Output file
 #SBATCH --error=swebench_eval.err     # Error log file
-#SBATCH --time=24:00:00               # Time limit (hh:mm:ss)
+#SBATCH --time=12:00:00               # Time limit (hh:mm:ss)
 #SBATCH --ntasks=1                    # Number of tasks (usually 1)
 #SBATCH --cpus-per-task=4             # Number of CPU cores per task
 #SBATCH --mem=32G                     # Memory per node
