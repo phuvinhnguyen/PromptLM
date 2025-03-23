@@ -7,9 +7,9 @@ from FlowDesign.processor import ThinkProcessor
 class SCoTD(ThinkProcessor):
     def __init__(self, bot):
         super().__init__()
-        max_time = 1
-        max_history = 1
-        repeat = 1
+        max_time = 6
+        max_history = 8
+        repeat = 5
         coder = DirectCoder(bot, max_time=max_time, max_history=max_history)
         analyser = Analyser(bot, max_time=max_time, max_history=max_history)
         tester = Tester(bot, max_time=max_time, max_history=max_history)
