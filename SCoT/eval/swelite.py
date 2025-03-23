@@ -25,21 +25,25 @@ def process_one_sample(index, data, bot, name):
                 capture_output=True
             )
         except subprocess.CalledProcessError as e:
-            raise RuntimeError(f"Failed to clone {repo}: {e.stderr.decode()}") from e
+            print(e)
         
         try:
             subprocess.run(
-                ['git checkout --quiet {commit} && pip install --quiet -e .'.format(commit=environment_setup_commit)],
+                ['git', 'checkout', '--quiet', environment_setup_commit],
                 cwd=project_dir,
-                shell=True,
+                check=True,
+                capture_output=True
+            )
+            
+            subprocess.run(
+                ['pip', 'install', '--quiet', '-e', '.'],
+                cwd=project_dir,
                 check=True,
                 capture_output=True
             )
 
         except subprocess.CalledProcessError as e:
-            raise RuntimeError(
-                f"Environment setup failed for {instance_id}: {e.stderr.decode()}"
-            ) from e
+            print(e)
         
         # Checkout base commit for modifications
         subprocess.run(
