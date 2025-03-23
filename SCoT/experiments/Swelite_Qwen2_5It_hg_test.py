@@ -20,13 +20,8 @@ if __name__ == '__main__':
     agent = SCoTD(bot)
     data = generate_patches(test_dataset, agent, f'{name}')
 
-    version = 1
-    while os.path.exists(filepath):
-        filepath = os.path.join(result_dir, f"experiment_{name}_v{version}.json")
-        version += 1
-
     # Save JSON data
-    with open(filepath, "w", encoding="utf-8") as file:
+    with open(filepath, "w") as file:
         json.dump(data, file, indent=4, ensure_ascii=False)
 
     print(f"Saved results to: {filepath}")

@@ -70,8 +70,8 @@ def process_one_sample(index, data, bot, name):
         }
 
         os.makedirs(f'./result/{name}', exist_ok=True)
-        with open(f'./result/{name}/{instance_id}.json') as f:
-            json.dump(output, f)
+        with open(f'./result/{name}/{instance_id}.json', 'w') as f:
+            json.dump(output, f, indent=4)
 
         return output
 

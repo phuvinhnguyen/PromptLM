@@ -30,7 +30,6 @@ class Environment:
         return extract_code(markdown_text)
     
     def run(self, text, root):
-        print('* '*20, 'Env', '* ' * 20)
         try:
             lang, code = self.get_code(text)
             code = self.code_wrap + code
@@ -38,8 +37,6 @@ class Environment:
             output = self.prompt.format(root=root, stdout=output.stdout, stderr=output.stderr)
         except Exception as e:
             output = 'Environment has some problems running the code:\n' + str(e)
-        print(output)
-        print('* '*20, 'Env', '* ' * 20)
         return output
 
 class EnvChat(ChatProcessor):
@@ -64,11 +61,8 @@ class EnvChat(ChatProcessor):
     def process(self, answer, problems, root):
         if len(problems) == 0: return ()
 
-        print('='*15, self.__class__, '='*15)
         answer = self.task(answer, problems[-1], root)
         for _ in range(self.max_time):
-            print(self.history[-1].content)
-            print('    <>'*16)
             super().process(answer, self.history)[0]
             try:
                 answer = self.exec(root, problems)
