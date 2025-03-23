@@ -16,7 +16,7 @@ if __name__ == '__main__':
     base_filename = f"experiment_{name}_v0.json"
     filepath = os.path.join(result_dir, base_filename)
 
-    bot = ImBot(args.token, run_local='hg', device_map='auto', pipeline_kwargs={'max_new_tokens': 2024})
+    bot = ImBot(args.token, run_local='hg', device_map='auto', pipeline_kwargs={'max_new_tokens': 2024}, batch_size=64)
     agent = SCoTD(bot)
     data = generate_patches(test_dataset, agent, f'{name}')
 
