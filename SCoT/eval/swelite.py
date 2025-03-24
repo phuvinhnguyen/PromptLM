@@ -18,6 +18,7 @@ def process_one_sample(index, data, bot, name):
 
     if os.path.isfile(f'./result/{name}/{instance_id}.json'):
         with open(f'./result/{name}/{instance_id}.json') as rf:
+            print('IGNORE:', f'./result/{name}/{instance_id}.json')
             return json.load(rf)
 
     with tempfile.TemporaryDirectory() as project_dir:

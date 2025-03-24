@@ -8,23 +8,18 @@
 #SBATCH --mem=16G                     # Memory per node
 #SBATCH --partition=amperenodes       # Partition name (adjust based on cluster)
 
-# Load necessary modules (adjust for your environment)
-module load python/3.10
-module load git
-
-# Run the first experiment with the token from environment
-python -m SCoT.experiments.Swelite_gpt4omini_test --token $RUNNINGAPI
+python -u -m SCoT.experiments.Swelite_gpt4omini_test --token $RUNNINGAPI
 
 # Clone and install SWE-bench
 if [ ! -d "SWE-bench" ]; then
     git clone https://github.com/SWE-bench/SWE-bench.git
 fi
 cd SWE-bench
-pip install -e .
+pip install --quiet -e .
 
 # Run evaluation
-python -m swebench.harness.run_evaluation \
+python -u -m swebench.harness.run_evaluation \
     --dataset_name princeton-nlp/SWE-bench_Lite \
-    --predictions_path "../result/experiment_Swelite_gpt4omini_test_v0.json" \
+    --predictions_path "../result/Swelite_gpt4omini_test.py.json" \
     --run_id validate-Swelite_gpt4omini_test \
     --modal true

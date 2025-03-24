@@ -19,9 +19,3 @@ if __name__ == '__main__':
     bot = ImBot(args.token, run_local='hg', device_map='auto', pipeline_kwargs={'max_new_tokens': 2024}, batch_size=64)
     agent = SCoTD(bot)
     data = generate_patches(test_dataset, agent, f'{name}')
-
-    # Save JSON data
-    with open(filepath, "w") as file:
-        json.dump(data, file, indent=4, ensure_ascii=False)
-
-    print(f"Saved results to: {filepath}")

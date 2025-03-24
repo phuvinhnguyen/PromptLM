@@ -1,36 +1,26 @@
 import os
-import json
 from FlowDesign.chatbot import *
 from SCoT.SCoTD import SCoTD
 from SCoT.eval.swelite import *
 import argparse
 
+def merge_json(input_folder, output_file):
+    data = [json.load(open(os.path.join(input_folder, f), encoding="utf-8")) 
+            for f in os.listdir(input_folder) if f.endswith(".json")]
+    json.dump(data, open(output_file, "w", encoding="utf-8"), indent=4, ensure_ascii=False)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("--token", type=str, required=True, help="Authentication token", default='token')
+    parser.add_argument("--token", type=str, help="Authentication token", default='token')
     args = parser.parse_args()
+    
+    result_dir = "./result"
+    name = os.path.basename(__file__)
+    os.makedirs(result_dir, exist_ok=True)
 
     bot = ChatGPTbot(args.token)
     agent = SCoTD(bot)
-    name = os.path.basename(__file__)
-    data = generate_patches(test_dataset[:1], agent, f'{name}')
-    
-    # Ensure the folder exists
-    result_dir = "./result"
-    os.makedirs(result_dir, exist_ok=True)
+    data = generate_patches(dev_dataset[:3], agent, f'{name}')
 
-    # Base filename
-    base_filename = f"experiment_{name}_v0.json"
-    filepath = os.path.join(result_dir, base_filename)
-
-    # If file exists, create a new version
-    version = 1
-    while os.path.exists(filepath):
-        filepath = os.path.join(result_dir, f"experiment_{name}_v{version}.json")
-        version += 1
-
-    # Save JSON data
-    with open(filepath, "w", encoding="utf-8") as file:
-        json.dump(data, file, indent=4, ensure_ascii=False)
-
-    print(f"Saved results to: {filepath}")
+    merge_json(f'./result/{name}', f'./result/{name}.json')
