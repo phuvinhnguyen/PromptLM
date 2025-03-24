@@ -16,6 +16,10 @@ def process_one_sample(index, data, bot, name):
     environment_setup_commit = data['environment_setup_commit']
     problem = data['problem_statement']
 
+    if os.path.isfile(f'./result/{name}/{instance_id}.json'):
+        with open(f'./result/{name}/{instance_id}.json') as rf:
+            return json.load(rf)
+
     with tempfile.TemporaryDirectory() as project_dir:
         repo_url = f"https://github.com/{repo}.git"
         try:
