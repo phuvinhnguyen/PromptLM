@@ -45,9 +45,9 @@ if __name__ == '__main__':
         raise ValueError("No bot selected. Use --gpt, --gemini, or --hg.")
 
     if args.fnc_call:
-        agent = GitHubAgentv1(bot, repeat=4, history_limit=5, loop_time=1, builtin_fnc_call=True)
+        agent = GitHubAgentv1(bot, repeat=6, history_limit=7, loop_time=4, builtin_fnc_call=True)
     else:
-        agent = GitHubAgentv1(bot, repeat=4, history_limit=5, loop_time=1)
+        agent = GitHubAgentv1(bot, repeat=6, history_limit=7, loop_time=4)
 
     if not dev_dataset:
         raise ValueError("Error: `dev_dataset` is empty. Load valid data before running.")
