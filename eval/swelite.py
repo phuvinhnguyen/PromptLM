@@ -24,59 +24,83 @@ def process_one_sample(index, data, bot, name):
     with tempfile.TemporaryDirectory() as project_dir:
         repo_url = f"https://github.com/{repo}.git"
         try:
-            print(subprocess.run(
+            subprocess.run(
                 ['git', 'clone', '--quiet', repo_url, project_dir],
+                check=True,
                 capture_output=True
-            ).__str__())
+            )
         except subprocess.CalledProcessError as e:
-            print(e)
-        
+            print("Clone error:", e.stderr.decode())
+            return None
+
         try:
+            # Checkout environment setup commit and install
             subprocess.run(
                 ['git', 'checkout', '--quiet', environment_setup_commit],
                 cwd=project_dir,
+                check=True,
                 capture_output=True
             )
-            
             subprocess.run(
                 ['pip', 'install', '--quiet', '-e', '.'],
                 cwd=project_dir,
+                check=True,
+                capture_output=True
+            )
+        except subprocess.CalledProcessError as e:
+            print("Environment setup error:", e.stderr.decode())
+            return None
+
+        try:
+            # Checkout base commit for modifications
+            subprocess.run(
+                ['git', 'checkout', '--quiet', base_commit],
+                cwd=project_dir,
+                check=True,
+                capture_output=True
+            )
+        except subprocess.CalledProcessError as e:
+            print("Checkout base commit error:", e.stderr.decode())
+            return None
+
+        # Run the bot to apply changes
+        bot.chat(problem=problem, root=project_dir)
+
+        # Stage all changes including new files
+        try:
+            add_result = subprocess.run(
+                ['git', 'add', '.'],
+                cwd=project_dir,
+                check=True,
                 capture_output=True
             )
 
         except subprocess.CalledProcessError as e:
-            print(e)
-        
-        # Checkout base commit for modifications
-        subprocess.run(
-            ['git', 'checkout', '--quiet', base_commit],
-            cwd=project_dir,
-            capture_output=True
-        )
-        
-        # Run the bot to apply changes
-        bot.chat(problem, project_dir)
-        
-        # Generate the diff against the base commit
+            add_result = ''
+            print("Git add error:", e.stderr.decode())
+
+        # Generate diff against base commit
         diff_process = subprocess.run(
-            ['git', 'diff', '--no-color', 'HEAD'],
+            ['git', 'diff', '--staged', '--no-color', 'HEAD'],
             cwd=project_dir,
             capture_output=True,
             text=True
         )
-        if diff_process.returncode != 0:
-            raise RuntimeError(f"Failed to generate diff: {diff_process.stderr}")
-                
-        # Save the result
+
+        diff = diff_process.stdout if diff_process.returncode == 0 else ''
+
         output = {
             "instance_id": instance_id,
-            "model_patch": diff_process.stdout,
+            "model_patch": diff,
             "model_name_or_path": name
         }
 
         os.makedirs(f'./result/{name}', exist_ok=True)
         with open(f'./result/{name}/{instance_id}.json', 'w') as f:
             json.dump(output, f, indent=4)
+
+        with open(f'./result/{name}/{instance_id}.log', 'w') as f:
+            f.write(str(diff_process) + '\n\n' + str(add_result))
 
         return output
 
@@ -88,4 +112,4 @@ def generate_patches(data_instances: list, bot, name='anonymous') -> Dict[str, L
     with ThreadPoolExecutor(max_workers=10) as executor:
         results = list(executor.map(process_wrapper, enumerate(data_instances)))
 
-    return results
+    return {data['instance_id']: res for data, res in zip(data_instances, results)}
